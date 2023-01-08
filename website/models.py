@@ -7,7 +7,18 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    folder_id = db.Column(db.Integer, db.ForeignKey("folder.id"))
+
+
+class Folder(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150))
+    typr = db.Column(db.String(10000))
+    notes = db.relationship("Note")
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class User(db.Model, UserMixin):
@@ -15,4 +26,4 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    notes = db.relationship('Note')
+    notes = db.relationship("Note")
