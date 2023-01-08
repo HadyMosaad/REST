@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Add new Folder {% endblock %} {%
+block content %}
+<form method="POST">
+  <h3 align="center">New Folder</h3>
+  <div class="form-group">
+    <label for="name">name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Enter name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Typr"> Typr</label>
+    <input
+      type="text"
+      class="form-control"
+      id="Typr"
+      name="Typr"
+      placeholder="Enter Typr"
+    />
+  </div>
+
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

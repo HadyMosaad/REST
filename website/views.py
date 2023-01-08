@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Note, Folder
 from . import db
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 import json
 
 views = Blueprint("views", __name__)
@@ -35,3 +36,17 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+
+@views.route("/add-folder", methods=["POST","GET"])
+def add_folder():
+    if request.method == "POST":
+        name = request.form.get("name")
+        typr = request.form.get("type")
+        new_folder = Folder(name=name, typr=typr)
+        db.session.add(new_folder)
+        db.session.commit()
+        flash("Folder created!", category="success")
+        return redirect(url_for("views.home"))
+
+    return render_template("addFolder.html", user=current_user)
